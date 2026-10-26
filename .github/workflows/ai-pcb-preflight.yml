@@ -1,0 +1,37 @@
+name: Validate AI PCB project preparation
+on:
+  push:
+    branches:
+      - projects/ai-pcb-design-automation
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Unit tests and project configuration checks
+        env:
+          GITHUB_REPOSITORY: sdsl-public/ai-pcb-design-automation
+        run: |
+          python3 -m unittest discover -s tests -v
+          node --check site/app.js
+          node --check site/config.js
+          node tests/test_report_refresh.js
+          node tests/test_summary_layout.js
+          node tests/test_ai_pcb_setup.js
+          python3 scripts/build.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          feed=json.loads(Path('_site/report-data.json').read_text())
+          assert feed == {'reports': []}, feed
+          assert len(list(Path('_site/assets/timeline-icons').glob('*.webp'))) == 6
+          config=Path('_site/config.js').read_text()
+          assert 'AI 기반 PCB 설계·검증·제작 자동화 연구' in config
+          print('AI_PCB_PROJECT_BUILD_PASS')
+          PY
