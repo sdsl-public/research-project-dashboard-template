@@ -39,7 +39,7 @@ class DeliverableTests(unittest.TestCase):
         html = (ROOT / 'site/index.html').read_text()
         self.assertEqual(html.count('src="./deliverables.js?v=1"'), 1)
         self.assertIn('href="./deliverables.css?v=1"', html)
-        self.assertLess(html.index('src="./app.js?v=summary-compact-rows-1"'), html.index('src="./deliverables.js?v=1"'))
+        self.assertLess(html.index('src="./app.js?v=footer-lab-full-1"'), html.index('src="./deliverables.js?v=1"'))
         self.assertIn('class="section-top timeline-header"', html)
         self.assertNotIn('id="demo-toggle"', html)
         self.assertIn('id="new-report"', html)
@@ -57,6 +57,20 @@ class DeliverableTests(unittest.TestCase):
         self.assertIn('report-data.json?refresh=', (ROOT / 'site/app.js').read_text())
         self.assertIn("window.setInterval(", (ROOT / 'site/app.js').read_text())
         self.assertIn("document.addEventListener('visibilitychange'", (ROOT / 'site/app.js').read_text())
+
+    def test_dashboard_footer_matches_sdsl_copyright(self):
+        html = (ROOT / 'site/index.html').read_text(encoding='utf-8')
+        app = (ROOT / 'site/app.js').read_text(encoding='utf-8')
+        config = (ROOT / 'site/config.js').read_text(encoding='utf-8')
+        self.assertIn('id="footer-organization">SDSL</span>', html)
+        self.assertIn('id="footer-project">Research Project Dashboard</span>', html)
+        self.assertIn('id="footer-copyright-organization">Semiconductor Device and System Laboratory</span>', html)
+        self.assertIn('All rights reserved.', html)
+        self.assertIn("footerProjectEnglish: 'Research Project Dashboard'", config)
+        self.assertIn("copyrightOrganization: 'Semiconductor Device and System Laboratory'", config)
+        self.assertIn("['#footer-organization',config.organizationShort]", app)
+        self.assertIn("['#footer-project',config.footerProjectEnglish||config.title]", app)
+        self.assertIn("['#footer-copyright-organization',config.copyrightOrganization||config.organization]", app)
 
     def test_module_syntax_and_read_only_behavior(self):
         path = ROOT / 'site/deliverables.js'

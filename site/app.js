@@ -376,10 +376,10 @@
   if ($('#hero-kicker-text')) $('#hero-kicker-text').textContent=config.kicker||'FROM IDEA TO IMPACT';
   for(const [selector,value] of [
     ['#brand-organization',config.organizationShort],
-    ['#footer-organization',config.organization],
-    ['#footer-project',config.title],
+    ['#footer-organization',config.organizationShort],
+    ['#footer-project',config.footerProjectEnglish||config.title],
     ['#footer-year',config.copyrightYear],
-    ['#footer-copyright-organization',config.organization]
+    ['#footer-copyright-organization',config.copyrightOrganization||config.organization]
   ]){const el=$(selector);if(el)el.textContent=value||'';}
   const period=document.createElement('p');
   period.id='project-period';period.className='project-period';
