@@ -19,6 +19,8 @@
     copyrightOrganization: 'Semiconductor Device and System Laboratory',
     copyrightYear: '2026',
     timezone: 'Asia/Seoul',
+    // Add public participants as {name: 'Name', role: 'Role'}.
+    projectTeam: [],
     projectStart: '2026-10-01',
     projectEnd: '2027-09-30',
     targetDate: null,
