@@ -21,6 +21,13 @@
     timezone: 'Asia/Seoul',
     // Add public participants as {name: 'Name', role: 'Role'}.
     projectTeam: [],
+    // Public website links shown below the three status/update panels.
+    // Edit/add/remove entries using {name, url, description (optional)}.
+    // These are template examples; replace them for your own project.
+    projectLinks: [
+      {name: 'Project Repository', url: 'https://github.com/sdsl-public/research-project-dashboard-template', description: 'Source code and documentation'},
+      {name: 'Research Laboratory', url: 'https://sdsl.cau.ac.kr/', description: 'Semiconductor Device and System Laboratory'},
+    ],
     projectStart: '2026-10-01',
     projectEnd: '2027-09-30',
     targetDate: null,
