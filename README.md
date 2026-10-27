@@ -11,6 +11,7 @@ GitHub Issues로 업무를 관리하고, 웹 대시보드에서 일정과 진행
 - GitHub Issues 기반 업무·마일스톤·담당자·진행 상태·체크리스트
 - 타임라인, 업무 목록, 칸반 보드, 검색 및 필터
 - 업무 현황 3개 통계, 최근 업무 8개, 최근 Weekly Report 8개
+- 주요 웹사이트 바로가기: `site/config.js`에서 이름·URL·설명 직접 수정
 - A4 HTML Weekly Report 작성 및 저장, 읽기 전용 브라우저 열람
 - 월별 보고서 폴더 `reports/weekly/YYYY-MM/`
 - PC/모바일 반응형 디자인, 산출물 아이콘 6개
@@ -28,6 +29,26 @@ GitHub Issues로 업무를 관리하고, 웹 대시보드에서 일정과 진행
    **Actions → Publish public dashboard → Run workflow**로 첫 배포를 실행합니다.
 
 기본 공개 주소는 `https://OWNER.github.io/REPOSITORY/`입니다. 표준 GitHub Pages 주소에서는 `site/config.js`가 새 저장소 경로를 자동 인식합니다. 사용자 지정 도메인은 설정 파일의 fallback 저장소 주소와 Actions 변수 `DASHBOARD_SITE_URL`을 지정하세요.
+
+
+## 주요 웹사이트 링크 관리
+
+대시보드의 **업무 현황 / 최근 업무 업데이트 / 최근 리포트 업데이트** 아래에
+**주요 웹사이트 (QUICK LINKS)** 영역이 표시됩니다. `site/config.js`의
+`projectLinks` 배열에서 링크를 직접 추가, 삭제하거나 순서를 변경할 수 있습니다.
+
+```javascript
+projectLinks: [
+  {name: 'Project Repository', url: 'https://github.com/OWNER/REPO', description: 'Source code and documentation'},
+  {name: 'Research Laboratory', url: 'https://example.org/', description: 'Laboratory website'},
+],
+```
+
+- `name`: 화면에 표시되는 링크 이름 (필수)
+- `url`: `https://` 또는 `http://`로 시작하는 웹사이트 주소 (필수)
+- `description`: 이름 아래 짧은 설명 (선택)
+- 위 예시는 수정 방법을 설명하기 위한 예시입니다. 최초 템플릿에는 이 저장소와 SDSL 연구실 링크가 등록되어 있습니다. 복제한 프로젝트에서는 원하는 주소로 바꾸세요.
+- 저장소에 변경사항을 커밋하면 GitHub Actions가 자동으로 배포합니다. 링크는 새 탭에서 열리며, 등록된 정보는 공개됩니다.
 
 ## Weekly Report
 
